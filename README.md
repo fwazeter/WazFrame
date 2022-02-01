@@ -58,7 +58,7 @@ However, we still have to autogenerate the code via php, rather than enqueueing 
  max-inline-size: none;
 }
 .alignwide > * {
- max-inline-size: none;
+ max-inline-size: clamp(48.5rem, 62vw, 96rem); /* comes from theme.json */
 }
 .alignfull > * {
  max-inline-size: none;
