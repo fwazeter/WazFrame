@@ -57,24 +57,20 @@ However, we still have to autogenerate the code via php, rather than enqueueing 
 .wf-container__default .alignfull {
  max-inline-size: none;
 }
-.alignwide > * {
- max-inline-size: clamp(48.5rem, 62vw, 96rem); /* comes from theme.json */
+
+.wf-container__inherit .alignleft {
+    float: left;
+    margin-block-start: var( --wp--style--block-gap, 2em );
 }
-.alignfull > * {
- max-inline-size: none;
+.wf-container__inherit .alignright {
+    float: right;
+    margin-block-end: var( --wp--style--block-gap, 2em );
 }
-.wf-container__default .alignleft {
- float: left;
- margin-block-start: var( --wp--style--block-gap, 2em );
-}
-.wf-container__default .alignright {
- float: right;
- margin-block-end: var( --wp--style--block-gap, 2em );
-}
-.wf-vstack > * {
+
+.wf-v_stack > * {
  margin-block: 0;
 }
-.wf-vstack > * + * {
+.wf-v_stack > * + * {
  margin-block-start: var(--wp--style--block-gap, 1.5rem);
 }
 .wf-container__flex {
@@ -150,26 +146,15 @@ This enables a direct child element that has ```alignwide``` or ```alignfull``` 
 
 **Values are auto-generated from theme.json or from block editor setting** not static.
 
-```css
-.alignwide > * {
- max-inline-size: none;
-}
-.alignfull > * {
- max-inline-size: none;
-}
-```
-This code doesn't exist in core. This is added for now because there's a quirk being worked out where children aren't
-properly inheriting wide or full content size from their parent blocks. This seems to fix it, and it's likely this inheritance quirk
-that led to using purely auto generated css classes with unique id's by WordPress to begin with.
 
 ```css
-.wf-container__default .alignleft {
- float: left;
- margin-block-start: var( --wp--style--block-gap, 2em );
+.wf-container__inherit .alignleft {
+    float: left;
+    margin-block-start: var( --wp--style--block-gap, 2em );
 }
-.wf-container__default .alignright {
- float: right;
- margin-block-end: var( --wp--style--block-gap, 2em );
+.wf-container__inherit .alignright {
+    float: right;
+    margin-block-end: var( --wp--style--block-gap, 2em );
 }
 
 /* Replaces */
@@ -183,15 +168,19 @@ that led to using purely auto generated css classes with unique id's by WordPres
 }
 ```
 
-This code seems to exist to handle containers where no explicit wide or content size is used, as WordPress doesn't make
+When a block, such as a group block, has no explicit width setting (e.g. alignment ```wide``` or ```full``` ) is not set in the block editor,
+only this code & ```wf-v_stack``` are applied. In this way, the block inherits it's width directly from the parent block and the block appears
+exactly like it does in the block editor.
+
+Otherwise, this code seems to exist to handle containers where no explicit wide or content size is used on the theme level, as WordPress doesn't make
 those blocks flex by default. For instance, if no explicit sizes are set for contentSize or wideSize, this code seems to be
-what goes into place.
+what goes into place, since the code uses floats. It may be removable entirely, or made to load only if the theme hasn't set a layout size.
 
 ```css
-.wf-vstack > * {
+.wf-v_stack > * {
  margin-block: 0;
 }
-.wf-vstack > * + * {
+.wf-v_stack > * + * {
  margin-block-start: var(--wp--style--block-gap, 1.5rem);
 }
 
