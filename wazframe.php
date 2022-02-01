@@ -24,17 +24,15 @@ defined( 'ABSPATH' ) || exit;
 if ( ! defined('WF_PLUGIN_FILE' ) ) {
 	define( 'WF_PLUGIN_FILE', __FILE__ );
 }
+require_once    'utils/core/array-get.php';
 
-require_once 'lib/block-supports/generate-css-classes.php';
+require_once    'lib/block-supports/layout.php';
 
-require_once 'lib/block-supports/layout.php';
-//require_once    'utils/safe-style-attrs.php';
+// May not be necessary, but might as well add logical props to safe-style attrs.
+require_once    'utils/safe-style-attrs.php';
+
+// Future replacement of block styles.
 //require_once    'lib/block-styles/replace-block-styles.php';
-// require_once      'utils/core/array-get.php';
-
-
-
-// require_once    'lib/block-supports/layout.php';
 
 //Gberg Code
 //require_once    'lib/block-supports/gberg_code.php';
@@ -44,7 +42,7 @@ function wf_register_css() {
 		'wf-global-defaults',
 		plugin_dir_url( WF_PLUGIN_FILE ) . '/assets/defaults.css',
 		'',
-		'0.0.13'
+		'0.0.14'
 	);
 }
 add_action( 'wp_enqueue_scripts', 'wf_register_css', 20 );

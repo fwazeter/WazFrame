@@ -6,6 +6,10 @@
 - Auto typographic scale from theme.json files?
 - Remove/replace dashicons?
 
+## Fixes To Make
+
+- Remove padding from text core/paragraph block (heading, etc) when using "has-background."
+
 ### References
 [Gutenberg Master Theme.json](https://github.com/WordPress/gutenberg/blob/trunk/lib/compat/wordpress-5.9/theme.json)
 

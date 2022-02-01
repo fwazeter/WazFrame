@@ -5,6 +5,9 @@
  * @package wazframe
  */
 
+include 'generate-css-classes.php';
+include 'set-css-classes.php';
+
 /**
  * Registers the layout block attribute for block types that support it.
  *
@@ -35,16 +38,25 @@ function wf_register_layout_support( $block_type ) {
  */
 function wf_render_layout_support_flag( string $block_content, array $block )
 {
-	$block_type     = WP_Block_Type_Registry::get_instance()->get_registered( $block['blockName'] );
-	$support_layout = block_has_support( $block_type, array( '__experimentalLayout' ), false );
+	// this function is super long - should break up into setter functions.
+	$block_type             = WP_Block_Type_Registry::get_instance()->get_registered( $block['blockName'] );
+
+	$support_layout         = block_has_support( $block_type, array( '__experimentalLayout' ), false );
 
 	if ( ! $support_layout ) {
 		return $block_content;
 	}
 
-	$default_layout        = wp_get_global_settings( array( 'layout' ) );
-	$default_block_layout  = _wp_array_get( $block_type->supports, array( '__experimentalLayout', 'default' ), array() );
-	$layout           = isset( $block['attrs']['layout'] ) ? $block['attrs']['layout'] : $default_block_layout;
+	// layout Settings
+	$default_layout         = wp_get_global_settings( array( 'layout' ) );
+	$default_block_layout   = _wp_array_get( $block_type->supports, array( '__experimentalLayout', 'default' ), array() );
+	$layout                 = isset( $block['attrs']['layout'] ) ? $block['attrs']['layout'] : $default_block_layout;
+
+	// blockGap Settings
+	$block_gap              = wp_get_global_settings( array( 'spacing', 'blockGap' ) );
+	$has_block_gap_support  = isset( $block_gap ) ? null !== $block_gap : false;
+
+
 	if ( isset( $layout['inherit'] ) && $layout['inherit'] ) {
 		if ( ! $default_layout ) {
 			return $block_content;
@@ -52,14 +64,17 @@ function wf_render_layout_support_flag( string $block_content, array $block )
 		$layout = $default_layout;
 	}
 
-	$layout_type    = isset( $layout['type'] ) ? $layout['type'] : 'default';
+	$class      = set_layout_class( $layout, $has_block_gap_support );
 
-	$content        = '';
+	$content    = '';
+
+	// Temporary, can remove later
+	$layout_type    = isset( $layout['type'] ) ? $layout['type'] : 'default';
 
 	if ( 'default' === $layout_type ) {
 		$content = preg_replace(
 			'/' . preg_quote( 'class="', '/' ) . '/',
-			'class="wf-container__default wf-vstack ',
+			$class,
 			$block_content,
 			1
 		);

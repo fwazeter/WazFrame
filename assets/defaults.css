@@ -9,18 +9,18 @@
      * Defaults globally a max 60ch content width, which is then overridden by sectional elements like html/body/etc.
      * Right now this causes weird things with cover block only half rendering.
      */
-    /* max-inline-size: var( --wf--measure, 60ch ); */
+    /*max-inline-size: var( --wf--measure, 60ch );*/
 }
 
-/*html,
-body,
-div,
-header,
-nav,
-main,
-footer {
-    max-inline-size: none;
-}*/
+/*html,*/
+/*body,*/
+/*div,*/
+/*header,*/
+/*nav,*/
+/*main,*/
+/*footer {*/
+/*    max-inline-size: none;*/
+/*}*/
 /**
  * Removes extra margin at the top that happens between a header template and the post content.
  * Rather than auto having margin wrapping the post-content, instead the user can have desired margin/padding
