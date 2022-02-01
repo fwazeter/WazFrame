@@ -20,7 +20,7 @@ function wf_default_layout_css(): string
 		// Maybe. Might have to do children?
 		$style  = "$selector { box-sizing: content-box; }";
 		$style  .= "$selector > * {";
-		//$style  .= 'box-sizing: border-box;';
+		$style  .= 'box-sizing: border-box;';
 		$style  .= 'max-inline-size: ' . esc_html( $content_size ) . ';';
 		$style  .= 'margin-inline: auto;';
 		$style  .= 'padding-inline: var( --wp--style--block-gap, 1rem )';
@@ -29,8 +29,8 @@ function wf_default_layout_css(): string
 		$style  .= "$selector > .alignwide { max-inline-size: " . esc_html( $wide_size ) . ';}';
 		$style  .= "$selector .alignfull { max-inline-size: none; }";
 
-		$style  .= '.alignwide > * { max-inline-size: none; }';
-		$style  .= '.alignfull > * { max-inline-size: none; }';
+		$style  .= '.alignwide > * { max-inline-size:' . esc_html( $wide_size ) . '; }';
+		// $style  .= '.alignfull > * { max-inline-size: none; }';
 	}
 
 	// default if not set content / widesize - maybe make a plugin option.
