@@ -13,16 +13,18 @@ function wf_default_layout_css(): array
 		'default'   => '.wf-container__default',
 		'inherit'   => '.wf-container__inherit',
 	];
+	$default    = $selector['default'];
+	$inherit    = $selector['inherit'];
+
 	$layout         = wp_get_global_settings( array( 'layout' ) );
 	$content_size   = $layout['contentSize'] ?? '';
 	$wide_size      = $layout['wideSize'] ?? '';
 
-	$default    = $selector['default'];
-	$inherit    = $selector['inherit'];
-
 	// The base container class when contentSize & wideSize are set.
-	$default_class  = "$default > * {";
-	$default_class  .= 'box-sizing: border-box;';
+	// Might as well add content-box as a wrapper to fix mobile padding.
+	$default_class  = "$default { box-sizing: content-box; }";
+
+	$default_class  .= "$default > * {";
 	$default_class  .= 'max-inline-size: ' . esc_html( $content_size ) . ';';
 	$default_class  .= 'margin-inline: auto;';
 	$default_class  .= 'padding-inline: var( --wp--style--block-gap, 1rem )';
@@ -31,7 +33,8 @@ function wf_default_layout_css(): array
 	$default_class  .= "$default > .alignwide { max-inline-size: " . esc_html( $wide_size ) . ';}';
 	$default_class  .= "$default .alignfull { max-inline-size: none; }";
 
-	$inherit_class  = "$inherit .alignleft { float: left; margin-block-start: var( --wp--style--block-gap, 2em ); }";
+	$inherit_class  = "$inherit { box-sizing: content-box; }";
+	$inherit_class  .= "$inherit .alignleft { float: left; margin-block-start: var( --wp--style--block-gap, 2em ); }";
 	$inherit_class  .= "$inherit .alignright { float: right; margin-block-end: var( --wp--style--block-gap, 2em ); }";
 
 	$generated_classes = [
@@ -56,7 +59,7 @@ function wf_flex_layout_css(): string
 
 	$style  = "$selector {";
 	$style  .= 'display: flex;';
-	$style  .= 'gap: var( --wp--style--block-gap, 1.5rem)';
+	$style  .= 'gap: var( --wp--style--block-gap, 0.5em )';
 	$style  .= '}';
 
 	$style  .= "$selector" . '_wrap { flex-wrap: wrap; }';

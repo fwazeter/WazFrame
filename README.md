@@ -10,10 +10,7 @@ Currently, the plugin is in active early development and not 100% functional (mo
 
 Defaults set through ```theme.json``` or set by the user in the **editor** for full site editing work as intended.
 
-This does not work properly with WordPress's _twenty twenty two_ theme right now because they use quite a bit of
-custom CSS to overcome the quirks of auto-generated CSS with the theme.json / theme supports API. 
-
-Test in a blank theme or in a theme you're creating.
+So far this has been tested in both TwentyTwentyTwo (WordPress's default theme for 2022) and blank themes and is working as intended.
 
 CSS structure is inspired heavily by the great work at [Every Layout](https://every-layout.dev/) and I highly recommend giving it a read.
 

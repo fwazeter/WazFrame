@@ -37,7 +37,7 @@ require_once    'utils/safe-style-attrs.php';
 //Gberg Code
 //require_once    'lib/block-supports/gberg_code.php';
 
-function wf_register_css() {
+/*function wf_register_css() {
 	wp_enqueue_style(
 		'wf-global-defaults',
 		plugin_dir_url( WF_PLUGIN_FILE ) . '/assets/defaults.css',
@@ -46,4 +46,4 @@ function wf_register_css() {
 	);
 }
 add_action( 'wp_enqueue_scripts', 'wf_register_css', 20 );
-add_action( 'enqueue_block_editor_assets', 'wf_register_css', 20 );
+add_action( 'enqueue_block_editor_assets', 'wf_register_css', 20 );*/
