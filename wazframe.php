@@ -25,10 +25,7 @@ if ( ! defined('WF_PLUGIN_FILE' ) ) {
 	define( 'WF_PLUGIN_FILE', __FILE__ );
 }
 require_once    'utils/array-get.php';
-// May not be necessary, but might as well add logical props to safe-style attrs.
+// May not be necessary, but might as well add logical props to safe-style attrs. for future plans.
 require_once    'utils/safe-style-attrs.php';
 
 require_once    'block-supports/layout.php';
-
-
-
