@@ -28,7 +28,7 @@ function wf_register_layout_support( $block_type ) {
 	}
 }
 
-// TODO: add get_layout_style for custom values.
+// TODO: add get-layout-style for custom blockGap values.
 /**
  * Renders the layout config to the block wrapper.
  *
@@ -50,23 +50,23 @@ function wf_render_layout_support_flag( string $block_content, array $block )
 	// layout Settings
 	$default_layout         = wp_get_global_settings( array( 'layout' ) );
 	$default_block_layout   = wf_wp_array_get( $block_type->supports, array( '__experimentalLayout', 'default' ), array() );
-	$layout                 = isset( $block['attrs']['layout'] ) ? $block['attrs']['layout'] : $default_block_layout;
+	$used_layout            = isset( $block['attrs']['layout'] ) ? $block['attrs']['layout'] : $default_block_layout;
 
 	// blockGap Settings
 	$block_gap              = wp_get_global_settings( array( 'spacing', 'blockGap' ) );
 	$has_block_gap_support  = isset( $block_gap ) ? null !== $block_gap : false;
 
 
-	if ( isset( $layout['inherit'] ) && $layout['inherit'] ) {
+	if ( isset( $used_layout['inherit'] ) && $used_layout['inherit'] ) {
 		if ( ! $default_layout ) {
 			return $block_content;
 		}
-		$layout = $default_layout;
+		$used_layout = $default_layout;
 	}
 
 	$gap_value  = '';
 
-	$content    = wf_get_layout_style( $block_content, $layout, $has_block_gap_support, $gap_value );
+	$content    = wf_get_layout_style( $block_content, $block, $used_layout, $has_block_gap_support, $gap_value );
 
 	return $content;
 }

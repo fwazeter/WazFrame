@@ -37,6 +37,7 @@ function set_default_layout_class( array $layout, bool $has_block_gap_support = 
  */
 function set_flex_layout_class( $layout ): string
 {
+	// do not currently need custom class for flex, except blockGap.
 	$assigned_class = 'class="wf-container__flex ';
 
 	$flex_wrap_options  = array( 'wrap', 'nowrap' );
@@ -75,8 +76,4 @@ function set_flex_layout_class( $layout ): string
 	}
 
 	return $assigned_class;
-}
-
-function set_custom_css_style(){
-
 }

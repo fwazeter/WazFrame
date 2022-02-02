@@ -27,7 +27,6 @@ function wf_default_layout_css(): array
 	$default_class  .= "$default > * {";
 	$default_class  .= 'max-inline-size: ' . esc_html( $content_size ) . ';';
 	$default_class  .= 'margin-inline: auto;';
-	$default_class  .= 'padding-inline: var( --wp--style--block-gap, 1rem )';
 	$default_class  .= '}';
 
 	$default_class  .= "$default > .alignwide { max-inline-size: " . esc_html( $wide_size ) . ';}';
@@ -102,6 +101,23 @@ function wf_vertical_stack_css(): string
 
 	}
 	return $style;
+}
+
+function wf_custom_layout_css_style( $selector, $content_size, $wide_size ) {
+	// We already know that the layout setting is set & it's value from wf_get_layout_style
+
+	// Custom Inputs
+	$assigned_class  = ".$selector > * {";
+	$assigned_class .= 'max-width: ' . esc_html( $content_size ) . ';';
+	$assigned_class .= 'margin-left: auto !important;';
+	$assigned_class .= 'margin-right: auto !important;';
+	$assigned_class .= '}';
+
+	$assigned_class .= ".$selector > .alignwide { max-width: " . esc_html( $wide_size ) . ';}';
+	$assigned_class .= ".$selector .alignfull { max-width: none; } ";
+
+	return $assigned_class;
+
 }
 
 function wf_generate_css_classes() {
