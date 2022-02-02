@@ -5,8 +5,8 @@
  * @package wazframe
  */
 
-include 'generate-css-classes.php';
-include 'get-layout-class.php';
+include 'generate-css-styles.php';
+include 'get-layout-style.php';
 
 /**
  * Registers the layout block attribute for block types that support it.
@@ -56,7 +56,6 @@ function wf_render_layout_support_flag( string $block_content, array $block )
 	$block_gap              = wp_get_global_settings( array( 'spacing', 'blockGap' ) );
 	$has_block_gap_support  = isset( $block_gap ) ? null !== $block_gap : false;
 
-
 	if ( isset( $used_layout['inherit'] ) && $used_layout['inherit'] ) {
 		if ( ! $default_layout ) {
 			return $block_content;
@@ -64,9 +63,12 @@ function wf_render_layout_support_flag( string $block_content, array $block )
 		$used_layout = $default_layout;
 	}
 
-	$gap_value  = '';
-
-	$content    = wf_get_layout_style( $block_content, $block, $used_layout, $has_block_gap_support, $gap_value );
+	$content    = wf_get_layout_style(
+					$block_content,
+					$block,
+					$used_layout,
+					$has_block_gap_support
+	);
 
 	return $content;
 }

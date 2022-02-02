@@ -7,7 +7,7 @@
  *
  * @return string   CSS class to assign.
  */
-function set_default_layout_class( array $layout, bool $has_block_gap_support = false ): string
+function set_default_layout_class( array $layout, bool $has_block_gap_support = false, $id = null ): string
 {
 	$assigned_class = 'class="';
 
@@ -18,11 +18,15 @@ function set_default_layout_class( array $layout, bool $has_block_gap_support = 
 		$assigned_class .= 'wf-container__default ';
 	}
 
-	$assigned_class .= 'wf-container__inherit ';
+	if ( $id !== null ) {
+		// will create name & property - but here, we just want to set the name
+		$assigned_class .= "$id ";
 
-	if ( $has_block_gap_support ) {
+	} elseif ( $has_block_gap_support ) {
 		$assigned_class .= 'wf-v_stack ';
 	}
+
+	$assigned_class .= 'wf-container__inherit ';
 
 	return $assigned_class;
 }
@@ -35,7 +39,7 @@ function set_default_layout_class( array $layout, bool $has_block_gap_support = 
  *
  * @return string   CSS class to assign.
  */
-function set_flex_layout_class( $layout ): string
+function set_flex_layout_class( $layout, $id = null ): string
 {
 	// do not currently need custom class for flex, except blockGap.
 	$assigned_class = 'class="wf-container__flex ';
@@ -48,10 +52,18 @@ function set_flex_layout_class( $layout ): string
 		$assigned_class  .= 'wf-container__flex_wrap ';
 	}
 
+	if ( $id !== null ) {
+		$assigned_class .= "$id ";
+	} else {
+		$assigned_class .= 'wf-container__flex-gap ';
+	}
+
 	$layout_orientation = isset( $layout['orientation'] ) ? $layout['orientation'] : 'horizontal';
 
 	if ( 'horizontal' === $layout_orientation ) {
-		$assigned_class  .= 'wf-container__flex_items-center ';
+		$assigned_class     .= 'wf-container__flex_items-center ';
+	} else {
+		$assigned_class     .= 'wf-container__flex-column ';
 	}
 
 	$justify_content_options    = array(
