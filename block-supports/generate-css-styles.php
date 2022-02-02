@@ -16,8 +16,9 @@ function wf_default_layout_css(): string
 	$wide_size      = $layout['wideSize'] ?? '';
 
 	$style  = "$selector > * {";
-	$style  .= 'max-inline-size: ' . esc_html( $content_size ) . ';';
-	$style  .= 'margin-inline: auto;';
+	$style  .= 'max-width: ' . esc_html( $content_size ) . ';';
+	$style  .= 'margin-left: auto !important;';
+	$style  .= 'margin-right: auto !important;';
 	$style  .= '}';
 
 	$style  .= "$selector > .alignwide { max-width: " . esc_html( $wide_size ) . ';}';
