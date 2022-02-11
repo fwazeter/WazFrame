@@ -199,8 +199,8 @@ function wf_generate_css_styles() {
 		     . $flex
 		     . $block_gap['flex']
 		     . '</style>';
-	} else {
-		echo '<style>' . $layout . $flex . '</style>';
+	}   else {
+			echo '<style>' . $layout . $flex . '</style>';
 	}
 }
 add_action( 'wp_footer', 'wf_generate_css_styles', 10, 2 );

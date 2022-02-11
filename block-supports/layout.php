@@ -36,7 +36,7 @@ function wf_register_layout_support( $block_type ) {
  * @param  array  $block         Block object.
  * @return string                Filtered block content.
  */
-function wf_render_layout_support_flag( string $block_content, array $block )
+function wf_render_layout_support_flag( string $block_content, array $block ): string
 {
 	// this function is super long - should break up into setter functions.
 	$block_type             = WP_Block_Type_Registry::get_instance()->get_registered( $block['blockName'] );

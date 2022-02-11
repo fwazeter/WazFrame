@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name: WazFrame Enhanced
+ * Plugin Name: WazFrame
  * Plugin URI: https://wazfactor.com
  * Description: WazFrame fixes many of the quirkiness's of WordPress Core & Gutenberg Full Site Editing, replacing
  * them with more sensible defaults and css classes that do not use auto-generated ID's.
