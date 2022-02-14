@@ -15,12 +15,12 @@ function wf_replace_block_styles() {
         // Text Blocks
         'wp-block-paragraph',
         'wp-block-heading',
-        'wp-block-list',
-        'wp-block-quote',
-        'wp-block-code',
+        //'wp-block-list',
+        //'wp-block-quote',
+        //'wp-block-code',
         'wp-block-preformatted',
-        'wp-block-pullquote',
-        'wp-block-table',
+        //'wp-block-pullquote',
+        //'wp-block-table',
 
         // Media Blocks
         //'wp-block-image',
@@ -30,8 +30,8 @@ function wf_replace_block_styles() {
         // Design Blocks
         // 'wp-block-columns',
         'wp-block-buttons',
-        'wp-block-button',
-        'wp-block-separator'
+        //'wp-block-button',
+        //'wp-block-separator'
     );
     foreach ( $styles as $style ) {
         // Remove the block style
