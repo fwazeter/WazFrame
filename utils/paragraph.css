@@ -1,0 +1,4 @@
+p.has-background {
+    --wp--custom--box-sizing: content-box;
+    box-sizing: var(--wp--custom--box-sizing);
+}
