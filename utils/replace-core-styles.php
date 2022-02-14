@@ -28,7 +28,7 @@ function wf_replace_block_styles() {
 
         'wp-block-group',
         // Design Blocks
-        // 'wp-block-columns',
+        'wp-block-columns',
         'wp-block-buttons',
         //'wp-block-button',
         //'wp-block-separator'
