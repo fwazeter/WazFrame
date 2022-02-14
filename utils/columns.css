@@ -1,0 +1,76 @@
+/**
+ * WP Columns Block CSS. (Child, column has no styles).
+ * Replaces style.css
+ *
+ * @url https://github.com/WordPress/gutenberg/blob/trunk/packages/block-library/src/columns/style.scss
+ * @since 0.0.4
+ */
+.wp-block-columns {
+    --wp--style--block-gap: var(--wp--custom--space-05);
+    --threshold: 49rem; /* original 30 */
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--wp--style--block-gap);
+}
+
+.wp-block-column {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+/**
+ * All Columns alignment
+ */
+.wp-block-columns.are-vertically-aligned-top {
+    align-items: flex-start;
+}
+.wp-block-columns.are-vertically-aligned-center {
+    align-items: center;
+}
+.wp-block-columns.are-vertically-aligned-bottom {
+    align-items: flex-end;
+}
+
+.wp-block-columns:not(.is-not-stacked-on-mobile) > .wp-block-column {
+    flex-grow: 1;
+    flex-basis: calc((var(--threshold) - 100%) * 999) !important;
+}
+
+.wp-block-columns:not(.is-not-stacked-on-mobile) > .wp-block-column[style*=flex-basis][style*='50%'] {
+    flex-grow:2
+}
+
+.wp-block-columns:not(.is-not-stacked-on-mobile) > .wp-block-column[style*=flex-basis][style*='66.66%'] {
+    flex-grow:3
+}
+
+.wp-block-columns.is-not-stacked-on-mobile {
+    flex-wrap:nowrap
+}
+
+.wp-block-columns.is-not-stacked-on-mobile>.wp-block-column {
+    flex-basis:0;
+    flex-grow:1
+}
+.wp-block-columns.is-not-stacked-on-mobile>.wp-block-column[style*=flex-basis] {
+    flex-grow:0
+}
+
+/**
+ * Individual Column Alignment - possibly not necessary.
+ */
+.wp-block-column.is-vertically-aligned-top {
+    align-self: flex-start;
+}
+.wp-block-column.is-vertically-aligned-center {
+    align-self: center;
+}
+.wp-block-column.is-vertically-aligned-bottom {
+    align-self: flex-end;
+}
+/* unsure why */
+.wp-block-column.is-vertically-aligned-bottom,
+.wp-block-column.is-vertically-aligned-center,
+.wp-block-column.is-vertically-aligned-top {
+    width:100%
+}
