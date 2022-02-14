@@ -1,0 +1,10 @@
+/**
+ * WP Preformatted Block CSS.
+ * Replaces style.css & theme.css
+ *
+ * @url https://github.com/WordPress/gutenberg/blob/trunk/packages/block-library/src/preformatted/style.scss
+ * @since 0.0.3
+ */
+.wp-block-preformatted {
+    white-space: pre-wrap;
+}
