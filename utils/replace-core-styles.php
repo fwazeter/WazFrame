@@ -39,7 +39,7 @@ function wf_replace_block_styles() {
 
         // Register the theme style
         $register_style = str_replace( 'wp-block-', '', $style );
-        $style_url = "{$register_style}.css"
+        $style_url = "{$register_style}.css";
         // If the file exists, register the style.
         if ( file_exists( "{$register_style}.css" ) ) {
             wp_register_style( $style,
