@@ -29,3 +29,5 @@ require_once    'utils/array-get.php';
 require_once    'utils/safe-style-attrs.php';
 
 require_once    'block-supports/layout.php';
+
+require_once	'utils/replace-core-styles.php';
