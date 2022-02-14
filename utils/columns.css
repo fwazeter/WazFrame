@@ -6,8 +6,7 @@
  * @since 0.0.4
  */
 .wp-block-columns {
-    --wp--style--block-gap: var(--wp--custom--space-05);
-    --threshold: 49rem; /* original 30 */
+    --threshold: 49rem;
     display: flex;
     flex-wrap: wrap;
     gap: var(--wp--style--block-gap);
