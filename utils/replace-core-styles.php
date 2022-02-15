@@ -41,7 +41,7 @@ function wf_replace_block_styles() {
         $register_style = str_replace( 'wp-block-', '', $style );
         $style_url = "{$register_style}.css";
         // If the file exists, register the style.
-        if ( file_exists( plugin_dir_url( __DIR__ ) . "utils/{$register_style}.css" ) ) {
+        if ( file_exists( plugin_dir_path( __DIR__ ) . "utils/{$register_style}.css" ) ) {
             wp_register_style( $style,
                 $style_url,
                 ''
