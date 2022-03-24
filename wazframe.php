@@ -3,7 +3,7 @@
  * Plugin Name: WazFrame
  * Plugin URI: https://wazfactor.com/wazframe
  * Description: Easy CSS management for WordPress Full Site Editing & Block Themes. Set your own defaults for auto-generated CSS & core block css.
- * Version: 0.0.1
+ * Version: 0.1.0
  * Author: Frank Wazeter
  * Author URI: https://wazeter.com
  * Text Domain: wazframe

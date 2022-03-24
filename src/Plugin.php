@@ -5,6 +5,9 @@ namespace WazFactor\WazFrame;
 // Internal Dependencies
 use WazFactor\WazFrame\Admin\{AdminPageSubscriber, AdminPageServiceProvider};
 use WazFactor\WazFrame\Internal\EventManagement\{EventManagerServiceProvider, EventManagerSubscriber};
+use WazFactor\WazFrame\DesignSystem\BlockSupport\BlockSupportServiceProvider;
+use WazFactor\WazFrame\DesignSystem\BlockSupport\Layout\LayoutSupportSubscriber;
+use WazFactor\WazFrame\DesignSystem\CSS\StyleBuilderServiceProvider;
 use WazFactor\WazFrame\Internal\Translation\TranslationServiceProvider;
 
 // External Dependencies
@@ -31,7 +34,7 @@ class Plugin
 	 *
 	 * @var string
 	 */
-	const VERSION = '0.0.1';
+	const VERSION = '0.1.0';
 	
 	/**
 	 * The plugin's dependency injection container.
@@ -50,6 +53,8 @@ class Plugin
 		EventManagerServiceProvider::class,
 		TranslationServiceProvider::class,
 		AdminPageServiceProvider::class,
+		StyleBuilderServiceProvider::class,
+		BlockSupportServiceProvider::class,
 	);
 	
 	/**
@@ -143,6 +148,7 @@ class Plugin
 		 */
 		$container->get( AdminPageSubscriber::class );
 		$container->get( EventManagerSubscriber::class );
+		$container->get( LayoutSupportSubscriber::class );
 		
 		
 		$this->loaded = true;

@@ -15,6 +15,7 @@ class AdminPageSubscriber implements SubscriberInterface
 	 * @var AdminPage
 	 */
 	protected AdminPage $page;
+	
 	/**
 	 * Basename of the plugin
 	 *

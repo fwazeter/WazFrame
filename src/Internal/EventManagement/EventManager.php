@@ -19,7 +19,6 @@ namespace WazFactor\WazFrame\Internal\EventManagement;
  *
  * 'add' & '_add' are the two methods that enable adding an event subscriber.
  *
- *
  * For full copyright and license information, view the LICENSE file distributed with the source code.
  *
  * @author  Frank Wazeter <design@wazeter.com>
@@ -49,6 +48,20 @@ class EventManager
 			$this->_add( $subscriber, $tag, $parameters );
 		}
 	}
+	
+	public function unSetSubscriber( RemoveSubscriberInterface $subscriber )
+	{
+		foreach ( $subscriber->getUnSubscribedEvents() as $tag => $functions ) {
+			if (is_string( $functions ) ) {
+				$this->_remove( $subscriber, $tag, $functions );
+			} elseif ( is_array( $functions ) ) {
+				foreach( $functions as $parameters ) {
+					$this->_remove( $subscriber, $tag, $parameters );
+				}
+			}
+		}
+	}
+	
 	
 	/**
 	 * Adds a callback function to a specific hook in the WordPress Plugin API.
@@ -203,20 +216,25 @@ class EventManager
 	 * When removing a callback from a WordPress hook, we do not need to pass the accepted args, but
 	 * the priority levels must match.
 	 *
-	 * @param SubscriberInterface $subscriber             The Subscriber Interface.
+	 * @param RemoveSubscriberInterface $subscriber             The Subscriber Interface.
 	 * @param string              $tag                    The WordPress hook name to subscribe to.
 	 * @param mixed               $params                 The parameters to subscribe ( callback function, (int)
 	 *                                                    priority, (int) accepted args.
 	 */
-	private function _remove( SubscriberInterface $subscriber, string $tag, $params )
+	private function _remove( RemoveSubscriberInterface $subscriber, string $tag, $params )
 	{
 		if ( is_string( $params ) ) {
-			$this->remove( $tag, array( $subscriber, $params ) );
+			if ( function_exists( $params ) ) {
+				$this->remove( $tag, $params );
+			}
 		} elseif ( is_array( $params ) && isset( $params[0] ) ) {
-			$this->remove(
-				$tag,
-				array( $subscriber, $params[0] ),
-				$params[1] ?? 10 );
+			if ( function_exists( $params[0] ) ) {
+				$this->remove(
+					$tag,
+					$params[0],
+					$params[1] ?? 10
+				);
+			}
 		}
 	}
 }

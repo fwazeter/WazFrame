@@ -4,6 +4,12 @@ namespace WazFactor\WazFrame\Internal\EventManagement;
 
 use WazFactor\WazFrame\Admin\AdminPage;
 use WazFactor\WazFrame\Admin\AdminPageSubscriber;
+use WazFactor\WazFrame\DesignSystem\BlockSupport\Layout\LayoutSupport;
+use WazFactor\WazFrame\DesignSystem\BlockSupport\Layout\LayoutSupportSubscriber;
+use WazFactor\WazFrame\DesignSystem\CSS\Primitives\Center\Center;
+use WazFactor\WazFrame\DesignSystem\CSS\Primitives\Center\IntrinsicCenter;
+use WazFactor\WazFrame\DesignSystem\CSS\Primitives\Cluster\Cluster;
+use WazFactor\WazFrame\DesignSystem\CSS\Primitives\Stack\Stack;
 use WazFactor\WazFrame\Internal\Translation\Translator;
 use WazFactor\WazFrame\Vendor\League\Container\ServiceProvider\AbstractServiceProvider;
 use WazFactor\WazFrame\Internal\Translation\TranslationSubscriber;
@@ -38,7 +44,12 @@ class EventManagerServiceProvider extends AbstractServiceProvider
 			AbstractEventSubscriber::class,
 			AdminPageSubscriber::class,
 			TranslationSubscriber::class,
+			LayoutSupportSubscriber::class,
 			EventManagerSubscriber::class,
+			Center::class,
+			IntrinsicCenter::class,
+			Stack::class,
+			Cluster::class,
 		);
 		
 		return in_array( $id, $services );
@@ -67,5 +78,15 @@ class EventManagerServiceProvider extends AbstractServiceProvider
 		
 		$container->addShared( TranslationSubscriber::class )
 		          ->addArguments( [ 'plugin_domain', 'translations_path' ] );
+		
+		$container->addShared( LayoutSupportSubscriber::class )
+					->addArguments( [
+						LayoutSupport::class,
+						Center::class,
+						IntrinsicCenter::class,
+						Cluster::class,
+						Stack::class,
+						EventManager::class,
+					] );
 	}
 }

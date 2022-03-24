@@ -19,7 +19,7 @@ trait ArrayUtil
 	 *
 	 * @param array  $array      The array to get the value from.
 	 * @param string $key        The complete key hierarchy using '::' as separator.
-	 * @param mixed  $default    The value to return if th ekey doesn't exist in the array.
+	 * @param mixed  $default    The value to return if the key doesn't exist in the array.
 	 *
 	 * @throws \Exception   $array is not an array.
 	 * @return mixed    The retrieved value or the supplied default value.
@@ -74,5 +74,46 @@ trait ArrayUtil
 	public static function getValueOrDefault( array $array, string $key, $default = null )
 	{
 		return $array[ $key ] ?? $default;
+	}
+	
+	/**
+	 * * Implementation of WP Core _wp_array_get utility function.
+	 *
+	 * It is the PHP equivalent of JavaScript’s lodash.get() and mirroring it may help other
+	 * components retain some symmetry between client and server implementations.
+	 *
+	 * Example usage:
+	 * $array = array(
+	 *                  'a' => array(
+	 *                  'b' => array(
+	 *                          'c' => 1,),
+	 *                  ),
+	 *          );
+	 * _wp_array_get( $array, array( 'a', 'b', 'c' ) );
+	 *
+	 * @param array $array      An array from which we want to retrieve some information.
+	 * @param array $path       An array of keys describing the path with which to retrieve information.
+	 * @param mixed $default    The return value if the path does not exist within the array or if $array or $path are not arrays.
+	 *
+	 * @return mixed            The value from the specified path.
+	 */
+	public function arrayGet( array $array, array $path, $default = null ) {
+		// Confirm $path is valid.
+		if ( ! is_array( $path ) || 0 === count( $path ) ) {
+			return $default;
+		}
+		
+		foreach ( $path as $path_element ) {
+			if (
+				! is_array( $array ) ||
+				( ! is_string( $path_element ) && ! is_integer( $path_element ) && ! is_null( $path_element ) ) ||
+				! array_key_exists( $path_element, $array )
+			) {
+				return $default;
+			}
+			$array = $array[ $path_element ];
+		}
+		
+		return $array;
 	}
 }
