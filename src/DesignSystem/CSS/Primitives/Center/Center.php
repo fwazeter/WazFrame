@@ -8,7 +8,6 @@ use WazFactor\WazFrame\DesignSystem\CSS\StyleBuilder;
 /**
  * Primarily powers the 'default' layout type from
  * LayoutSupport.
- *
  */
 class Center
 {
