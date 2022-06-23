@@ -45,8 +45,8 @@ class Center
 				'--wf--style--content-size'     => esc_html__( $content_size ),
 				'--wf--style--wide-size'        => esc_html( $wide_size ),
 				'box-sizing'                    => 'content-box',
-				/*'margin-inline'                 => 'auto',
-				'max-inline-size'               => 'var(--wf--style--content-size)',*/
+				//'margin-inline'                 => 'auto',
+				//'max-inline-size'               => 'var(--wf--style--content-size)',
 			),
 			
 			"$selector > *"                     => array(
@@ -54,11 +54,19 @@ class Center
 				'max-inline-size'               => 'var(--wf--style--content-size)',
 			),
 			
-			"$selector > .alignwide"            => array(
+			".alignwide"            => array(
 				'max-inline-size'               => 'var(--wf--style--wide-size)',
 			),
 			
-			"$selector .alignfull"              => array(
+			".alignfull"              => array(
+				'max-inline-size'               => '100vw',
+				'margin-inline-start'           => 'calc(50% - 50vw)'
+			),
+			
+			"*"                                 => array(
+				'max-inline-size'               => esc_html__( $content_size ),
+			),
+			"html,\nbody,\ndiv,\nheader,\nnav,\nmain,\nsection,\narticle,\nfooter"     => array(
 				'max-inline-size'               => 'none'
 			)
 		);

@@ -1,0 +1,3 @@
+# Blocks
+
+Registers WordPress blocks.

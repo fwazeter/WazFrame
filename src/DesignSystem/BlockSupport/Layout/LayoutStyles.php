@@ -8,7 +8,6 @@ use WazFactor\WazFrame\Utilities\ArrayUtil;
 class LayoutStyles
 {
 	use ArrayUtil;
-	
 	/**
 	 * CSS Style Builder
 	 *
