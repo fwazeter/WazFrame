@@ -80,7 +80,12 @@ WP_Block_Supports::get_instance()->register(
 	)
 );
 
+if ( function_exists( 'gutenberg_render_layout_support_flag' ) ) {
+	remove_filter( 'render_block', 'gutenberg_render_layout_support_flag' );
+}
+
 if ( function_exists( 'wp_render_layout_support_flag' ) ) {
 	remove_filter( 'render_block', 'wp_render_layout_support_flag' );
-}
+} 
 add_filter( 'render_block', 'wf_render_layout_support_flag', 10, 2 );
+
