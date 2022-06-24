@@ -13,11 +13,15 @@
  *
  * @package WazFrame
  */
+
+use WazFactor\WazFrame\Autoloader;
+use WazFactor\WazFrame\Plugin;
+
 defined( 'ABSPATH' ) || exit;
 
 
 require_once dirname( __FILE__ ) . '/src/Autoloader.php';
-\WazFactor\WazFrame\Autoloader::register();
+Autoloader::register();
 
-$load_plugin = new \WazFactor\WazFrame\Plugin( __FILE__ );
+$load_plugin = new Plugin( __FILE__ );
 add_action( 'after_setup_theme', array( $load_plugin, 'load' ) );
