@@ -71,12 +71,33 @@ want too many duplicate styles (e.g. redundant redeclaration of style logic) in 
 don't want
 to make it difficult to read the CSS and debug it. That said, we could easily
 
-### 2. Default Global Reset
+### 2. Default Global Reset & Assigned Properties
 
 This can be a minimal file and would enable us to dequeue the WP provided ones. In almost all cases we'd want something
 like excess space above paragraph tags to be removed via margin 0 call, and we'd also want all elements to default
 to `box-sizing: border-box`,
 there aren't many of these.
+
+The big question is: what's the global pattern for generating CSS properties, and what are the classes we want to
+specifically render server side?
+
+#### Key Questions & Thoughts:
+
+* Do we override the generated CSS custom props by wordpress and add toggleable ability to remove them? **prob yes, but
+  low priority**
+* `Theme.json` is the primary source of all the problems. It's both complex in the problems it causes and limited in the
+  power it offers themes to truly be used.
+* Map `theme.json` properties to the styles they generate. Because theme.json creates the most problems based on theme &
+  user settings, these are the areas we can address first.
+* Convert `LayoutSupport` class to be more dynamic and reusable - we're going to be re-writing an aweful lot
+  of `block-support` API's.
+* There **must** be a non SVG related way to render duotone properties. **lower priority**
+* It is possible to dequeue the auto-generated CSS styles by WordPress, but doing so is **all or nothing** meaning it
+  also removes any user input into theme.json and prevents those global props from being used. That means re-writing
+  that system also.
+* **Not so much an immediate item** but font enqueueing still isn't great via theme.json, and in the block editor you
+  can only edit the default font for all typography, not just headers, but oddly, you can edit links. **WHY CAN YOU
+  CHANGE LINK ONLY FONTS IN THE SITE EDITOR BUT NOT HEADERS**.
 
 ### 3. Block Editor Reset / Adjustment **this will be ongoing**.
 
@@ -143,7 +164,55 @@ spacing, etc are an entirely separate concern with how things look. The advantag
 how, by default,
 a block renders certain properties to make them easier to override.
 
+### Notes about `theme.json`
 
+You can add just about any design style to any block with any value. Meaning that assigned styles will have to be robust
+enough
+to handle multiple variation. This could be a good use case for more custom props - but we don't want an infinite
+amount of custom props polluting the global scope. The end result may be to have the style system generate the value for
+the
+custom prop, and then the block CSS itself actually assigns the custom prop, similar to how we're handling
+the `wazframe-layout` block library.
+
+### Notes about `wazframe-layout`
+
+We have a lot of duplication of styles that override specific values (e.g. `wf-size-small`) on specific classes for
+pre-configured options.
+There must be a way to globalize those tokens but also make them specific enough for a block. If this is done, we could
+also get
+a more clear vision in place for the `@wazframe/block-editor` package and the roles it plays and the hooks it provides.
+
+In the end, we want as little complication on the design and development of individual blocks as possible, because
+fundamentally
+`ReactJS` is a library that handles *state* between data and display. It's meant to solve different problems.
+
+### Thoughts on `the cascade`
+
+Most CSS today is strong armed into being overly granular - making micro decisions on each individual component. While
+some exceptions
+are nice, when we want certain values to override things, far too often the **exceptions are the rule** rather than
+being actual *exceptions to the rule*.
+
+It's so pervasive that we've been conditioned to think of CSS in the wrong way, we're handling inline styles everywhere,
+but the stylesheet was
+created explicitly so we didn't have to inline styles to begin with!
+
+We must always be thinking that in most cases, if we set a property in a parent, we probably want the children to
+inherit that property and carefully
+think through and map out what the inheritance tree looks like.
+
+**We don't want to reinvent the current WordPress CSS clusterfuck**, where 18 files need to be dequeued or referenced in
+vastly different API mechanics that happened simply because by nature of the project
+it had to come in place piecemeal. As was stated before, modifying WordPress core the way Gutenberg does is like **
+trying to replace a jet engine mid flight**.
+
+### Lowest Possible Specificity At All Times & Always Give an Escape Hatch
+
+While we're going to start with opinionated styles, we have to do so in a way that is low specificity and easiest for a
+user or
+other developer to override completely with their own settings. **Additionally** we need an "escape hatch" for every
+style generated
+so that a user can opt into or out of a feature.
 
 
 
