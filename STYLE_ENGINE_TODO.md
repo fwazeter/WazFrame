@@ -214,6 +214,4 @@ other developer to override completely with their own settings. **Additionally**
 style generated
 so that a user can opt into or out of a feature.
 
-
-
-
+###Because creating simple sites is so difficult, we can't make beautiful complex sites.

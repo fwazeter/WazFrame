@@ -1,0 +1,91 @@
+/**-------------------------------------------------
+ * Default smart global CSS reset & basic global
+ * defaults for browsers, (e.g. fullwidth size).
+ -------------------------------------------------*/
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+/* Spacing: Remove default margin */
+body, h1, h2, h3, h4, h5, h6, p, figure,
+blockquote, dl, dd {
+	margin: 0;
+}
+
+/**  Default Content Size / Measure  **/
+* {
+	max-inline-size: var(--wf--content-size, 60ch);
+}
+
+html, body, div, article,
+header, main, footer, nav, section {
+	max-inline-size: none;
+}
+
+/** this may need some adjustment **/
+.wf-wide-width {
+	inline-size:         var(--wf--wide-size, 70rem);
+	margin-inline-start: calc(50% - calc(var(--wf--wide-size, 70rem) / 2));
+}
+
+/** Enables a block to expand full width regardless of parent **/
+.wf-full-width {
+	inline-size:         100vw;
+	margin-inline-start: calc(50% - 50vw);
+}
+
+/* Make images easier to work with */
+img,
+picture {
+	display:   block;
+	max-width: 100%;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+	list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+	scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+	line-height:    1.5;
+	min-height:     100vh;
+	text-rendering: optimizeSpeed;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+	text-decoration-skip-ink: auto;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+	font: inherit;
+}
+
+/* Remove all animations and transitions for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+	html:focus-within {
+		scroll-behavior: auto;
+	}
+	
+	*,
+	*::before,
+	*::after {
+		animation-duration:        0.01ms !important;
+		animation-iteration-count: 1 !important;
+		scroll-behavior:           auto !important;
+		transition-duration:       0.01ms !important;
+	}
+}
